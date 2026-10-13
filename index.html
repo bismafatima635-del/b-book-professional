@@ -1,0 +1,881 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080a12">
+  <meta name="description" content="Meet B-Book, a business-focused social platform being developed to help businesses showcase their brands, connect with people, and grow their presence, starting in Karachi, Pakistan.">
+  <meta name="keywords" content="B-Book, business networking, Karachi businesses, local discovery, business social network">
+  <meta property="og:title" content="B-Book — Where Business Meets Connection">
+  <meta property="og:description" content="Discover businesses. Share ideas. Build connections. Explore the future of business networking with B-Book.">
+  <title>B-Book — Where Business Meets Connection</title>
+
+  <style>
+    :root {
+      --bg: #080a12;
+      --surface: #10131e;
+      --surface-2: #151a29;
+      --text: #f7f8ff;
+      --muted: #a4acc0;
+      --accent: #9b8cff;
+      --accent-2: #66e3ce;
+      --line: rgba(255,255,255,.10);
+      --radius: 22px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 95px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+                   BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    ::selection { background: #9b8cff55; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: auto; }
+    .muted { color: var(--muted); }
+    .gradient-text {
+      background: linear-gradient(110deg, #c7bdff, #8eabff 48%, #69ead3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: #c7bdff;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 22px;
+      height: 2px;
+      background: var(--accent-2);
+    }
+    .section { padding: 105px 0; }
+    .section-heading { max-width: 690px; margin-bottom: 45px; }
+    .section-heading h2 {
+      margin: 13px 0;
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      letter-spacing: -.055em;
+      line-height: 1.13;
+    }
+    .section-heading p { color: var(--muted); font-size: 1.04rem; }
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      min-height: 49px;
+      padding: 12px 20px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      font-weight: 750;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(115deg, #b1a1ff, #83dff0);
+      color: #090b14;
+      box-shadow: 0 8px 32px #9b8cff25;
+    }
+    .btn-secondary {
+      background: #ffffff07;
+      border-color: var(--line);
+      color: var(--text);
+    }
+    .btn-secondary:hover { background: #ffffff10; border-color: #ffffff30; }
+
+    /* Navigation */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #080a12eF;
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+    }
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 11px; flex-shrink: 0; }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      color: #080a12;
+      font-size: 1.25rem;
+      font-weight: 950;
+      letter-spacing: -.1em;
+      padding-right: 3px;
+      background: linear-gradient(135deg, #c7bdff, #72e8d8);
+      box-shadow: 0 5px 24px #9b8cff30;
+    }
+    .brand-name { font-size: 1.3rem; font-weight: 900; letter-spacing: -.055em; }
+    .brand-name span { color: #a99bff; }
+    .nav-links { display: flex; align-items: center; gap: 27px; }
+    .nav-links a:not(.btn) {
+      color: #c1c6d5;
+      font-size: .9rem;
+      font-weight: 600;
+      transition: color .2s ease;
+    }
+    .nav-links a:not(.btn):hover { color: white; }
+    .nav-links .btn { min-height: 42px; padding: 9px 15px; font-size: .88rem; }
+    .menu-toggle {
+      display: none;
+      color: white;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding: 92px 0 75px;
+      isolation: isolate;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 650px;
+      height: 650px;
+      right: -180px;
+      top: -140px;
+      background: radial-gradient(circle, #7964ff21 0%, #7964ff08 42%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 50px;
+    }
+    .launch-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid #ffffff16;
+      border-radius: 999px;
+      background: #ffffff06;
+      padding: 7px 13px;
+      color: #d6d9e7;
+      font-size: .78rem;
+      font-weight: 650;
+      margin-bottom: 22px;
+    }
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      box-shadow: 0 0 12px #66e3ce88;
+    }
+    .hero h1 {
+      max-width: 700px;
+      margin: 0;
+      font-size: clamp(3rem, 6.2vw, 5.35rem);
+      line-height: .99;
+      letter-spacing: -.075em;
+      font-weight: 900;
+    }
+    .hero-copy {
+      max-width: 555px;
+      color: #aeb5c9;
+      font-size: clamp(1rem, 1.7vw, 1.13rem);
+      margin: 25px 0 30px;
+      line-height: 1.85;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-note { margin-top: 22px; color: #8e96ad; font-size: .84rem; }
+    .hero-note span { color: var(--accent-2); }
+
+    /* CSS-only product illustration */
+    .visual-wrap { position: relative; min-width: 0; padding: 25px 12px; }
+    .visual-glow {
+      position: absolute;
+      inset: 13% 4%;
+      background: radial-gradient(ellipse, #8c7aff2b, transparent 68%);
+      filter: blur(18px);
+    }
+    .dashboard {
+      position: relative;
+      max-width: 475px;
+      margin: auto;
+      padding: 19px;
+      border: 1px solid #ffffff1b;
+      border-radius: 25px;
+      background: linear-gradient(145deg, #171b2aee, #0c0f19f5);
+      box-shadow: 0 35px 100px #0008, inset 0 1px #ffffff12;
+      transform: rotate(-2deg);
+    }
+    .dash-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+    .dash-logo { display: flex; gap: 9px; align-items: center; font-weight: 850; }
+    .dash-logo .brand-mark { width: 32px; height: 32px; border-radius: 9px; font-size: .95rem; }
+    .dash-icon {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: #d4d8e7;
+    }
+    .dash-welcome { font-size: 1.4rem; font-weight: 850; letter-spacing: -.045em; }
+    .dash-sub { font-size: .78rem; color: var(--muted); margin-top: 3px; }
+    .story-row { display: flex; justify-content: space-between; gap: 8px; margin: 20px 0; }
+    .story { flex: 1; text-align: center; font-size: .67rem; color: #b6bdd1; min-width: 0; }
+    .story-ring {
+      display: grid;
+      place-items: center;
+      width: 49px;
+      height: 49px;
+      margin: 0 auto 7px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #a99bff, #66e3ce);
+      padding: 2px;
+    }
+    .story-ring span {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      border: 2px solid #131624;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #292441, #172a36);
+      font-weight: 850;
+      color: white;
+    }
+    .post-card {
+      padding: 13px;
+      border: 1px solid #ffffff10;
+      border-radius: 17px;
+      background: #ffffff05;
+      margin-top: 12px;
+    }
+    .post-person { display: flex; align-items: center; gap: 10px; }
+    .avatar {
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #806be9, #4eafa9);
+      font-size: .8rem;
+      font-weight: 900;
+    }
+    .post-person strong { display: block; font-size: .77rem; }
+    .post-person small { display: block; font-size: .66rem; color: var(--muted); }
+    .post-art {
+      min-height: 105px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      margin-top: 12px;
+      border-radius: 12px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 80% 20%, #8c7aff65, transparent 40%),
+        radial-gradient(ellipse at 20% 100%, #66e3ce30, transparent 45%),
+        linear-gradient(125deg, #22233b, #111827);
+    }
+    .post-art strong { font-size: 1.2rem; letter-spacing: -.04em; }
+    .post-art small { display: block; color: #c5c9db; font-size: .7rem; }
+    .post-bottom { display: flex; justify-content: space-between; color: #a9b0c5; font-size: .72rem; margin-top: 11px; }
+    .float-card {
+      position: absolute;
+      padding: 13px 16px;
+      border: 1px solid #ffffff20;
+      border-radius: 15px;
+      background: #171b2cf2;
+      box-shadow: 0 15px 45px #0006;
+      font-size: .78rem;
+      animation: float 5s ease-in-out infinite;
+    }
+    .float-card strong { display: block; font-size: .9rem; }
+    .float-card small { color: var(--muted); }
+    .float-one { right: -6px; top: 11%; }
+    .float-two { left: -19px; bottom: 9%; animation-delay: -2.5s; }
+    .float-symbol { color: var(--accent-2); font-size: 1.1rem; margin-right: 5px; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+
+    /* Trust / statement strip */
+    .statement-strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #ffffff03; }
+    .statement-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 0;
+      flex-wrap: wrap;
+    }
+    .statement-inner p { margin: 0; color: #b2bad0; font-size: .88rem; }
+    .statement-inner strong { color: #f1f2fa; }
+    .statement-tags { display: flex; flex-wrap: wrap; gap: 9px; }
+    .tag { padding: 6px 11px; border: 1px solid var(--line); border-radius: 999px; color: #bfc5d7; font-size: .75rem; }
+
+    /* Features */
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
+    .feature-card {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #121522, #0d1019);
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+    }
+    .feature-card:hover { transform: translateY(-5px); border-color: #a99bff65; background: #141728; }
+    .feature-icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border: 1px solid #ffffff12;
+      border-radius: 15px;
+      background: linear-gradient(145deg, #a99bff22, #66e3ce0d);
+      font-size: 1.35rem;
+    }
+    .feature-card h3 { margin: 22px 0 9px; font-size: 1.13rem; letter-spacing: -.025em; }
+    .feature-card p { margin: 0; color: var(--muted); font-size: .91rem; line-height: 1.8; }
+
+    /* About / mission */
+    .mission-panel {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 5vw, 58px);
+      border: 1px solid #ffffff15;
+      border-radius: 28px;
+      background:
+        radial-gradient(ellipse at 100% 0%, #9b8cff1b, transparent 42%),
+        linear-gradient(125deg, #151928, #0d1019);
+    }
+    .mission-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 45px; align-items: center; }
+    .mission-panel h2 { font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.12; letter-spacing: -.055em; margin: 15px 0; }
+    .mission-panel p { color: var(--muted); }
+    .mission-points { display: grid; gap: 14px; }
+    .mission-point { display: flex; align-items: flex-start; gap: 13px; padding: 16px; border: 1px solid #ffffff10; border-radius: 15px; background: #ffffff04; }
+    .check { display: grid; place-items: center; flex-shrink: 0; width: 25px; height: 25px; border-radius: 8px; background: #66e3ce18; color: var(--accent-2); font-weight: 900; }
+    .mission-point strong { display: block; font-size: .93rem; }
+    .mission-point span:last-child { color: var(--muted); font-size: .81rem; }
+
+    /* Process */
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+    .step { padding-top: 23px; border-top: 1px solid #ffffff24; }
+    .step-number { font-size: .76rem; color: var(--accent-2); letter-spacing: .12em; font-weight: 850; }
+    .step h3 { font-size: 1.2rem; margin: 12px 0 8px; }
+    .step p { color: var(--muted); font-size: .91rem; margin: 0; }
+
+    /* Karachi */
+    .local-panel {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 32px;
+      padding: 32px;
+      border: 1px solid #ffffff14;
+      border-radius: 23px;
+      background: linear-gradient(110deg, #151729, #0d151b);
+    }
+    .local-panel h3 { margin: 8px 0; font-size: 1.6rem; letter-spacing: -.04em; }
+    .local-panel p { color: var(--muted); margin: 0; max-width: 700px; }
+
+    /* FAQ */
+    .faq-list { max-width: 820px; display: grid; gap: 11px; }
+    details { border: 1px solid var(--line); border-radius: 15px; background: #ffffff03; }
+    summary { padding: 18px 20px; cursor: pointer; font-weight: 750; list-style: none; display: flex; justify-content: space-between; gap: 20px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--accent-2); font-size: 1.25rem; line-height: 1.4; }
+    details[open] summary::after { content: "−"; }
+    details p { margin: 0; padding: 0 20px 20px; color: var(--muted); font-size: .92rem; }
+
+    /* Final CTA and footer */
+    .cta-section { padding: 30px 0 100px; }
+    .cta-panel {
+      text-align: center;
+      padding: clamp(35px, 7vw, 75px) 25px;
+      border: 1px solid #ffffff17;
+      border-radius: 30px;
+      background:
+        radial-gradient(ellipse at 50% 0%, #9b8cff23, transparent 60%),
+        linear-gradient(135deg, #131726, #0c1019);
+    }
+    .cta-panel h2 { max-width: 700px; margin: 15px auto; font-size: clamp(2.2rem, 5vw, 3.7rem); line-height: 1.1; letter-spacing: -.06em; }
+    .cta-panel p { max-width: 620px; margin: 0 auto 25px; color: var(--muted); }
+    .footer { border-top: 1px solid var(--line); padding: 55px 0 22px; background: #070910; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr .7fr .7fr; gap: 45px; padding-bottom: 38px; }
+    .footer-about p { max-width: 380px; color: var(--muted); font-size: .89rem; }
+    .footer h4 { margin: 0 0 14px; font-size: .9rem; }
+    .footer-links { display: grid; gap: 10px; }
+    .footer-links a { color: var(--muted); font-size: .86rem; }
+    .footer-links a:hover { color: white; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 20px; color: #858da3; font-size: .78rem; }
+    .footer-bottom p { margin: 0; }
+
+    /* Accessibility and responsive layout */
+    a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 4px; }
+    @media (max-width: 920px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 25px; }
+      .hero-copy { max-width: 650px; }
+      .visual-wrap { max-width: 560px; width: 100%; margin: 0 auto; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .mission-grid { grid-template-columns: 1fr; gap: 22px; }
+      .nav-links { gap: 16px; }
+      .nav-links a:not(.btn) { font-size: .83rem; }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(100% - 30px, var(--max)); }
+      .section { padding: 72px 0; }
+      .nav { min-height: 68px; }
+      .menu-toggle { display: inline-flex; align-items: center; gap: 8px; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        left: 0; right: 0; top: 68px;
+        padding: 20px 22px 24px;
+        background: #0b0d16;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 19px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a:not(.btn) { font-size: .95rem; }
+      .nav-links .btn { width: 100%; }
+      .hero { padding: 65px 0 55px; }
+      .hero h1 { font-size: clamp(3rem, 13vw, 4.3rem); }
+      .hero-actions .btn { width: 100%; }
+      .float-one { right: -2px; }
+      .float-two { left: -4px; }
+      .dashboard { padding: 13px; }
+      .features-grid, .steps-grid { grid-template-columns: 1fr; }
+      .feature-card { padding: 23px; }
+      .local-panel { align-items: flex-start; flex-direction: column; padding: 25px; }
+      .local-panel .btn { width: 100%; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px 20px; }
+      .footer-about { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; }
+      .statement-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="B-Book homepage">
+        <span class="brand-mark">B.</span>
+        <span class="brand-name">B-<span>Book</span></span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks">
+        <span aria-hidden="true">☰</span> Menu
+      </button>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#businesses">For Businesses</a>
+        <a href="#how-it-works">How It Works</a>
+        <a class="btn btn-primary" href="#get-started">Explore B-Book <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="launch-pill"><span class="live-dot"></span> Building connections, starting in Karachi</div>
+          <div class="eyebrow">A new perspective on business networking</div>
+          <h1>Where business meets <span class="gradient-text">connection.</span></h1>
+          <p class="hero-copy">
+            Discover a new way to bring businesses and people closer together.
+            B-Book is being developed as a business-focused social platform
+            where brands can showcase what they do, share their stories, and
+            build meaningful connections with their communities.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#features">Discover the platform <span aria-hidden="true">→</span></a>
+            <a class="btn btn-secondary" href="#businesses">For business owners</a>
+          </div>
+          <p class="hero-note"><span>✦</span> Designed with local discovery and business visibility in mind.</p>
+        </div>
+
+        <div class="visual-wrap" aria-label="Illustrative preview of the B-Book interface">
+          <div class="visual-glow"></div>
+          <div class="dashboard">
+            <div class="dash-top">
+              <div class="dash-logo"><span class="brand-mark">B.</span> B-Book</div>
+              <span class="dash-icon" aria-hidden="true">⌕</span>
+            </div>
+            <div class="dash-welcome">Your world of business.</div>
+            <div class="dash-sub">Discover people, ideas and local brands.</div>
+
+            <div class="story-row">
+              <div class="story"><div class="story-ring"><span>+</span></div>Your story</div>
+              <div class="story"><div class="story-ring"><span>CA</span></div>Café</div>
+              <div class="story"><div class="story-ring"><span>ST</span></div>Studio</div>
+              <div class="story"><div class="story-ring"><span>BK</span></div>Boutique</div>
+              <div class="story"><div class="story-ring"><span>+</span></div>Explore</div>
+            </div>
+
+            <div class="post-card">
+              <div class="post-person">
+                <div class="avatar">BC</div>
+                <div><strong>Business Collective</strong><small>Business profile · Karachi</small></div>
+              </div>
+              <div class="post-art">
+                <div><strong>Ideas become opportunities.</strong><small>Showcase what makes your business unique.</small></div>
+              </div>
+              <div class="post-bottom"><span>♡ Like &nbsp; ◯ Comment &nbsp; ↗ Share</span><span>•••</span></div>
+            </div>
+            <div class="post-card">
+              <div class="post-person">
+                <div class="avatar" style="background:linear-gradient(135deg,#ba8b69,#7554a8)">L</div>
+                <div><strong>Local Finds</strong><small>Discover something new</small></div>
+              </div>
+              <div class="dash-sub" style="margin-top:12px">A place for creativity, community and business discovery.</div>
+            </div>
+          </div>
+          <div class="float-card float-one"><span class="float-symbol">✦</span><strong>Discover more</strong><small>Find businesses and ideas</small></div>
+          <div class="float-card float-two"><span class="float-symbol">↗</span><strong>Grow your presence</strong><small>Give your brand a place to shine</small></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="statement-strip">
+      <div class="container statement-inner">
+        <p><strong>One platform.</strong> More ways to connect with business.</p>
+        <div class="statement-tags">
+          <span class="tag">Business discovery</span>
+          <span class="tag">Social sharing</span>
+          <span class="tag">Community connections</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Meet B-Book</div>
+          <h2>A digital space built around <span class="gradient-text">people and businesses.</span></h2>
+          <p>
+            Finding a business, discovering a new brand, or sharing what you
+            create should feel natural. B-Book aims to bring business discovery
+            and social interaction into one accessible experience, giving
+            businesses and people more opportunities to find each other.
+          </p>
+        </div>
+
+        <div class="mission-panel">
+          <div class="mission-grid">
+            <div>
+              <div class="eyebrow">Our vision</div>
+              <h2>Make every business easier to <span class="gradient-text">discover.</span></h2>
+              <p>
+                From independent shops and cafés to service providers and growing
+                brands, every business has something worth sharing. B-Book is
+                being built to give those stories a digital home and help people
+                explore the businesses around them.
+              </p>
+              <p>
+                Our starting focus is Karachi, Pakistan. The broader vision is
+                to develop a welcoming platform where business presence,
+                community interaction, and discovery can work together.
+              </p>
+            </div>
+            <div class="mission-points">
+              <div class="mission-point"><span class="check">✓</span><div><strong>Business visibility</strong><span>A dedicated space to introduce a brand and present its identity.</span></div></div>
+              <div class="mission-point"><span class="check">✓</span><div><strong>Content and creativity</strong><span>Share updates, ideas, products and moments that represent your work.</span></div></div>
+              <div class="mission-point"><span class="check">✓</span><div><strong>Meaningful discovery</strong><span>Make it easier for people to explore businesses and find things that interest them.</span></div></div>
+              <div class="mission-point"><span class="check">✓</span><div><strong>Room to grow</strong><span>Build a stronger digital presence as your business develops.</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features" style="background:#ffffff02;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Explore the possibilities</div>
+          <h2>More than a profile. A place to <span class="gradient-text">show what you do.</span></h2>
+          <p>
+            B-Book's planned experience brings together the building blocks of
+            a modern business-oriented social network. The following describes
+            the platform's intended direction; individual features may depend
+            on app development and availability.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">◈</div>
+            <h3>Business profiles</h3>
+            <p>Give your business a recognizable identity with a profile designed to introduce your brand, services, products, and the story behind your work.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">▧</div>
+            <h3>Posts and updates</h3>
+            <p>Share announcements, new arrivals, helpful information, creative work, and updates that help your audience understand what your business offers.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">◉</div>
+            <h3>Stories and short videos</h3>
+            <p>Bring everyday moments to life with visual content that can showcase products, behind-the-scenes activities, new ideas, and brand personality.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">⌕</div>
+            <h3>Business discovery</h3>
+            <p>Explore brands, services, and ideas through a discovery-focused experience intended to help people find businesses that match their interests.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">↗</div>
+            <h3>Community interaction</h3>
+            <p>Create opportunities for conversation through social interactions and communication tools as they become available in the platform.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">✧</div>
+            <h3>Promotional opportunities</h3>
+            <p>Explore future ways for businesses to increase their visibility through promotional options, subject to availability, platform rules, and applicable terms.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="businesses">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">For business owners</div>
+          <h2>Your business deserves a <span class="gradient-text">digital presence.</span></h2>
+          <p>
+            A strong online presence helps people understand what you offer
+            before they contact you or visit your shop. B-Book aims to make
+            business presentation and discovery approachable for both
+            established brands and people starting something new.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">01</div>
+            <h3>Introduce your brand</h3>
+            <p>Present your business identity and help people understand your products, services, values, and what makes your offering distinctive.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">02</div>
+            <h3>Showcase your work</h3>
+            <p>Use engaging content to tell your story, introduce new products, share useful updates, and communicate the personality behind your brand.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">03</div>
+            <h3>Build connections</h3>
+            <p>Create opportunities to connect with interested people, discover other businesses, and develop relationships within a wider business community.</p>
+          </article>
+        </div>
+        <p class="muted" style="font-size:.82rem;margin-top:20px">
+          Business reach, customer growth, and promotional results are not guaranteed.
+          Availability of specific tools depends on the app's actual release and functionality.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works" style="padding-top:25px">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Getting started</div>
+          <h2>A simple idea. A <span class="gradient-text">connected community.</span></h2>
+          <p>
+            The intended journey is straightforward: create a presence,
+            share something valuable, and make it easier for others to
+            discover your business or interests.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step">
+            <div class="step-number">STEP 01 / CREATE</div>
+            <h3>Build your presence</h3>
+            <p>Set up the appropriate account or profile when registration and profile creation are available in the app.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">STEP 02 / SHARE</div>
+            <h3>Show what matters</h3>
+            <p>Introduce your business, share updates, and create useful content that represents your brand or interests.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">STEP 03 / CONNECT</div>
+            <h3>Explore opportunities</h3>
+            <p>Discover businesses and content, and use the platform's available interaction tools to make relevant connections.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:15px">
+      <div class="container">
+        <div class="local-panel">
+          <div>
+            <div class="eyebrow">Our starting point</div>
+            <h3>Designed with Karachi in mind.</h3>
+            <p>
+              Karachi is home to an extraordinary variety of shops, service
+              providers, creators, entrepreneurs, and growing brands. B-Book's
+              initial launch focus is Karachi, with the aim of understanding
+              local business needs and developing a useful community over time.
+            </p>
+          </div>
+          <a class="btn btn-secondary" href="#get-started">Learn about B-Book <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq" style="background:#ffffff02;border-top:1px solid var(--line)">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Frequently asked questions</div>
+          <h2>Good questions. <span class="gradient-text">Clear answers.</span></h2>
+          <p>Learn more about B-Book, its purpose, and the direction of the platform.</p>
+        </div>
+
+        <div class="faq-list">
+          <details>
+            <summary>What is B-Book?</summary>
+            <p>B-Book is being developed as a business-focused social networking platform intended to help businesses present their brands, share content, and connect with people through a digital community.</p>
+          </details>
+          <details>
+            <summary>Who is B-Book designed for?</summary>
+            <p>The intended audience includes business owners, entrepreneurs, local service providers, brands, and people interested in discovering businesses and engaging with relevant content.</p>
+          </details>
+          <details>
+            <summary>Where will B-Book launch first?</summary>
+            <p>The initial launch focus is Karachi, Pakistan. Any expansion to additional cities or regions will depend on the platform's development and future plans.</p>
+          </details>
+          <details>
+            <summary>Will businesses be able to promote themselves?</summary>
+            <p>Paid business promotions are a planned potential offering. Their availability, pricing, eligibility, and terms must be confirmed before businesses can purchase a promotion.</p>
+          </details>
+          <details>
+            <summary>Will B-Book be free to use?</summary>
+            <p>The goal is to make getting started accessible. Any paid promotions or other paid services will need to be clearly identified. Specific features, charges, and availability will be explained when confirmed.</p>
+          </details>
+          <details>
+            <summary>How can I contact B-Book support?</summary>
+            <p>You can email bbook0859@gmail.com for questions about the platform or website. Please avoid including passwords or other sensitive information in support emails.</p>
+          </details>
+          <details>
+            <summary>Is the app available to download now?</summary>
+            <p>Availability depends on the actual release status. A verified Google Play Store link will be added here when the app has been published and its public listing is available.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="get-started">
+      <div class="container">
+        <div class="cta-panel">
+          <div class="eyebrow">The future is built together</div>
+          <h2>Give your business a place to <span class="gradient-text">be discovered.</span></h2>
+          <p>
+            B-Book is being built around a simple idea: make business discovery
+            more connected, approachable, and useful. Follow the journey as
+            the platform develops and prepares for its initial focus in Karachi.
+          </p>
+          <a class="btn btn-primary" href="mailto:bbook0859@gmail.com?subject=B-Book%20Enquiry">Contact the B-Book team <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand" href="#home">
+            <span class="brand-mark">B.</span>
+            <span class="brand-name">B-<span>Book</span></span>
+          </a>
+          <p>
+            A business-focused social platform in development, with a vision
+            to bring brands, people, and local discovery closer together.
+            Starting in Karachi, Pakistan.
+          </p>
+          <a class="muted" href="mailto:bbook0859@gmail.com" style="font-size:.88rem">bbook0859@gmail.com</a>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <div class="footer-links">
+            <a href="#about">About B-Book</a>
+            <a href="#features">Platform features</a>
+            <a href="#businesses">For businesses</a>
+            <a href="#how-it-works">How it works</a>
+            <a href="#faq">FAQs</a>
+          </div>
+        </div>
+        <div>
+          <h4>Information</h4>
+          <div class="footer-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="support.html">Support</a>
+            <a href="delete-account.html">Account Deletion</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="year">2026</span> B-Book. All rights reserved.</p>
+        <p>Built with a vision for better business connections.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.innerHTML = isOpen
+        ? '<span aria-hidden="true">✕</span> Close'
+        : '<span aria-hidden="true">☰</span> Menu';
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.innerHTML = '<span aria-hidden="true">☰</span> Menu';
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
